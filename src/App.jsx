@@ -452,7 +452,7 @@ const TimerApp = () => {
 
       {showSettings && (
         <div className="fixed inset-0 flex items-center justify-center p-4 z-50" style={{ backgroundColor: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }} onClick={() => setShowSettings(false)}>
-          <div className="w-full max-w-lg rounded-3xl p-6 relative max-h-[90vh] overflow-y-auto" style={{ 
+          <div className={`w-full max-w-lg rounded-3xl p-6 relative max-h-[90vh] overflow-y-auto ${isDarkMode ? 'settings-scroll-dark' : 'settings-scroll-light'}`} style={{ 
             background: cardBg,
             backdropFilter: 'blur(40px)',
             WebkitBackdropFilter: 'blur(40px)',
