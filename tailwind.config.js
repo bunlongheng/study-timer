@@ -3,7 +3,7 @@ export default {
     theme: {
         extend: {
             screens: {
-                'lg-land': { raw: '(min-width: 900px) and (orientation: landscape) and (max-height: 900px)' },
+                'lg-land': { raw: '(min-width: 700px) and (orientation: landscape)' },
             },
         },
     },

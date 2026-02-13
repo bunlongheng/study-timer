@@ -7,16 +7,17 @@ html, body, #root {
   overflow: hidden;
 }
 
+/* Default portrait / mobile: timer fits in remaining space */
 .timer-circle {
-  width: clamp(200px, 40vw, 340px);
-  height: clamp(200px, 40vw, 340px);
+  width: clamp(180px, 38vw, 300px);
+  height: clamp(180px, 38vw, 300px);
 }
 
-/* iPad landscape and similar tablet landscape viewports */
-@media (min-width: 900px) and (orientation: landscape) and (max-height: 900px) {
+/* Landscape tablets (iPad Mini 1024x768, iPad 1024x768, etc.) */
+@media (min-width: 700px) and (orientation: landscape) {
   .timer-circle {
-    width: min(50vh, 380px);
-    height: min(50vh, 380px);
+    width: min(52vh, 340px);
+    height: min(52vh, 340px);
   }
 
   .landscape-container {
@@ -25,10 +26,10 @@ html, body, #root {
   }
 }
 
-/* Smaller landscape (e.g. phones in landscape) */
+/* Very short landscape (phones) */
 @media (max-height: 500px) and (orientation: landscape) {
   .timer-circle {
-    width: min(45vh, 260px);
-    height: min(45vh, 260px);
+    width: min(42vh, 240px);
+    height: min(42vh, 240px);
   }
 }

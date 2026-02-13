@@ -200,17 +200,17 @@ const TimerApp = () => {
           
           {/* Left side on landscape: title + mode icons + start button */}
           <div className="flex flex-col items-center lg-land:items-center justify-center lg-land:flex-shrink-0">
-            <h1 className="font-thin text-center tracking-wide mb-3 lg-land:mb-4 px-4" style={{ 
+            <h1 className="font-thin text-center tracking-wide mb-2 lg-land:mb-3 px-4" style={{ 
               color: currentMode?.color,
               fontWeight: '200',
               letterSpacing: '0.05em',
-              fontSize: 'clamp(2rem, 6vw, 5rem)'
+              fontSize: 'clamp(1.75rem, 5vw, 3.5rem)'
             }}>
               {currentMode?.name}
             </h1>
 
-            <div className="mb-3 lg-land:mb-4 flex justify-center">
-              <div className="flex items-center gap-3 lg-land:gap-3">
+            <div className="mb-2 lg-land:mb-3 flex justify-center">
+              <div className="flex items-center gap-2 lg-land:gap-3">
                 {enabledModes.map((mode) => {
                   const Icon = iconMap[mode.icon];
                   const isActive = mode.id === activeMode;
@@ -226,8 +226,8 @@ const TimerApp = () => {
                       disabled={isCompleted}
                       className="relative transition-all duration-300 overflow-hidden"
                       style={{
-                        width: isActive ? '72px' : '52px',
-                        height: isActive ? '72px' : '52px',
+                        width: isActive ? '64px' : '46px',
+                        height: isActive ? '64px' : '46px',
                         cursor: isCompleted ? 'not-allowed' : 'pointer',
                         filter: isActive && !isCompleted ? `drop-shadow(0 0 10px ${mode.color}) drop-shadow(0 0 5px ${mode.color})` : 'none',
                         transition: 'width 0.3s ease, height 0.3s ease'
@@ -298,7 +298,7 @@ const TimerApp = () => {
                   createRipple(e, currentMode?.color);
                   handleStartStop();
                 }} 
-                className="px-8 py-3 rounded-full font-semibold text-white text-base transition-all duration-200 hover:scale-105 flex items-center gap-2 relative overflow-hidden" 
+                className="px-6 py-2.5 rounded-full font-semibold text-white text-sm transition-all duration-200 hover:scale-105 flex items-center gap-2 relative overflow-hidden" 
                 style={{ 
                   background: 'rgba(75, 85, 99, 0.6)',
                   backdropFilter: 'blur(20px)',
@@ -333,7 +333,7 @@ const TimerApp = () => {
           </div>
 
           {/* Right side on landscape: timer circle */}
-          <div className="flex items-center justify-center lg-land:flex-shrink-0 mt-2 lg-land:mt-0">
+          <div className="flex items-center justify-center lg-land:flex-shrink-0 mt-1 lg-land:mt-0">
             <button 
               onClick={(e) => {
                 createRipple(e, currentMode?.color);
