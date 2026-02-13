@@ -180,55 +180,15 @@ const TimerApp = () => {
             <div className="text-left flex-shrink-0">
               <span className="text-xs" style={{ color: secondaryTextColor }}>{formatDateTime()}</span>
             </div>
-            <div className="flex items-center gap-2 flex-shrink-0">
-              {timeLeft !== 0 && (
-                <button 
-                  onClick={(e) => {
-                    createRipple(e, currentMode?.color);
-                    handleStartStop();
-                  }} 
-                  className="px-5 py-2 rounded-full font-semibold text-white text-sm transition-all duration-200 hover:scale-105 flex items-center gap-2 relative overflow-hidden" 
-                  style={{ 
-                    background: 'rgba(75, 85, 99, 0.6)',
-                    backdropFilter: 'blur(20px)',
-                    WebkitBackdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    boxShadow: '0 8px 32px rgba(75, 85, 99, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3)' 
-                  }}>
-                  <div className="absolute top-0 left-0 right-0 h-1/2 rounded-t-full" style={{
-                    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%)',
-                    pointerEvents: 'none'
-                  }}></div>
-                  <span className="text-base">{isRunning ? '⏸' : '▶'}</span>
-                  <span className="relative z-10">{isRunning ? 'Pause' : 'Start'}</span>
-                  {ripples.filter(r => r.color === currentMode?.color).map(ripple => (
-                    <div
-                      key={ripple.id}
-                      className="absolute rounded-full pointer-events-none"
-                      style={{
-                        left: ripple.x,
-                        top: ripple.y,
-                        width: '15px',
-                        height: '15px',
-                        backgroundColor: currentMode?.color,
-                        transform: 'translate(-50%, -50%)',
-                        animation: 'rippleEffect 1s ease-out',
-                        opacity: 0.2
-                      }}
-                    />
-                  ))}
-                </button>
-              )}
-              <button onClick={() => setShowSettings(true)} className="p-2 rounded-full transition-all hover:scale-110 flex-shrink-0" style={{ 
+            <button onClick={() => setShowSettings(true)} className="p-2 rounded-full transition-all hover:scale-110 flex-shrink-0" style={{ 
               background: cardBg,
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
               border: `1px solid ${isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}`,
               boxShadow: isDarkMode ? '0 8px 32px rgba(0, 0, 0, 0.3)' : '0 8px 32px rgba(0, 0, 0, 0.1)'
             }}>
-                <Settings className="w-5 h-5" style={{ color: textColor }} />
-              </button>
-            </div>
+              <Settings className="w-5 h-5" style={{ color: textColor }} />
+            </button>
           </div>
           <div className="text-left">
             <span className="text-xs" style={{ color: secondaryTextColor }}>{userName}</span>
@@ -377,7 +337,7 @@ const TimerApp = () => {
                 }} />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center gap-1">
                   <div className="text-3xl sm:text-4xl lg-land:text-4xl font-bold" style={{ 
                     color: textColor,
                     fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif',
@@ -389,7 +349,7 @@ const TimerApp = () => {
                     <span className="text-lg opacity-60">.{formatTime(timeLeft).ms}</span>
                   </div>
                   {!isRunning && timeLeft !== 0 && hasStarted && (
-                    <div className="mt-1 text-xs font-medium tracking-wider uppercase px-2 py-0.5 rounded-md" style={{ 
+                    <div className="text-xs font-medium tracking-wider uppercase px-2 py-0.5 rounded-md" style={{ 
                       color: '#EF4444',
                       background: isDarkMode ? 'rgba(26, 26, 26, 0.8)' : 'rgba(243, 244, 246, 0.8)',
                       backdropFilter: 'blur(10px)',
@@ -398,6 +358,16 @@ const TimerApp = () => {
                       fontSize: '9px'
                     }}>
                       Paused
+                    </div>
+                  )}
+                  {timeLeft !== 0 && (
+                    <div className="mt-1 text-xs font-medium tracking-widest uppercase" style={{
+                      color: currentMode?.color,
+                      opacity: 0.8,
+                      letterSpacing: '0.15em',
+                      textShadow: `0 0 12px ${currentMode?.color}40`
+                    }}>
+                      {isRunning ? 'Tap to Pause' : hasStarted ? 'Tap to Resume' : 'Tap to Start'}
                     </div>
                   )}
                 </div>
