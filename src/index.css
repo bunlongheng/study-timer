@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Default portrait / mobile: timer fits in remaining space */
+.timer-circle {
+  width: clamp(180px, 38vw, 300px);
+  height: clamp(180px, 38vw, 300px);
+}
+
+/* Landscape tablets (iPad Mini 1024x768, iPad 1024x768, etc.) */
+@media (min-width: 700px) and (orientation: landscape) {
+  .timer-circle {
+    width: min(52vh, 340px);
+    height: min(52vh, 340px);
+  }
+
+  .landscape-container {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+}
+
+/* Very short landscape (phones) */
+@media (max-height: 500px) and (orientation: landscape) {
+  .timer-circle {
+    width: min(42vh, 240px);
+    height: min(42vh, 240px);
+  }
+}
