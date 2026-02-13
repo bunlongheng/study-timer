@@ -160,7 +160,7 @@ const TimerApp = () => {
 
   return (
     <div 
-      className="min-h-screen flex items-center justify-center p-2 ripple-container" 
+      className="h-screen flex items-center justify-center p-2 ripple-container" 
       onClick={handlePageClick}
       style={{ 
         fontFamily: 'Poppins, system-ui, sans-serif',
@@ -173,9 +173,10 @@ const TimerApp = () => {
         MozUserSelect: 'none',
         msUserSelect: 'none'
       }}>
-      <div className="w-full max-w-6xl flex flex-col items-center" style={{ minHeight: '100vh', padding: '0.5rem 0' }}>
-        <div className="w-full px-2 mb-6">
-          <div className="flex items-center justify-between mb-2">
+      <div className="w-full max-w-6xl flex flex-col items-center h-full py-2 landscape-container">
+        {/* Header row */}
+        <div className="w-full px-2 mb-2 lg-land:mb-1 flex-shrink-0">
+          <div className="flex items-center justify-between mb-1">
             <div className="text-left flex-shrink-0">
               <span className="text-xs" style={{ color: secondaryTextColor }}>{formatDateTime()}</span>
             </div>
@@ -194,186 +195,230 @@ const TimerApp = () => {
           </div>
         </div>
 
-        <h1 className="font-thin text-center tracking-wide mb-6 px-4" style={{ 
-          color: currentMode?.color,
-          fontWeight: '200',
-          letterSpacing: '0.05em',
-          fontSize: 'clamp(3rem, 9.6vw, 7.2rem)'
-        }}>
-          {currentMode?.name}
-        </h1>
+        {/* Main content area - switches to horizontal on landscape tablets */}
+        <div className="flex-1 w-full flex flex-col lg-land:flex-row items-center justify-center lg-land:justify-evenly lg-land:gap-8 min-h-0">
+          
+          {/* Left side on landscape: title + mode icons + start button */}
+          <div className="flex flex-col items-center lg-land:items-center justify-center lg-land:flex-shrink-0">
+            <h1 className="font-thin text-center tracking-wide mb-3 lg-land:mb-4 px-4" style={{ 
+              color: currentMode?.color,
+              fontWeight: '200',
+              letterSpacing: '0.05em',
+              fontSize: 'clamp(2rem, 6vw, 5rem)'
+            }}>
+              {currentMode?.name}
+            </h1>
 
-
-
-        <div className="w-full mb-3 flex justify-center">
-          <div className="flex items-center gap-4" style={{ minHeight: '100px' }}>
-            {enabledModes.map((mode) => {
-              const Icon = iconMap[mode.icon];
-              const isActive = mode.id === activeMode;
-              const isCompleted = completedModes[mode.id] === true;
-              
-              return (
-                <button
-                  key={mode.id}
-                  onClick={(e) => {
-                    createRipple(e, mode.color);
-                    handleModeChange(mode.id);
-                  }}
-                  disabled={isCompleted}
-                  className="relative transition-all duration-300 overflow-hidden"
-                  style={{
-                    width: isActive ? '100px' : '70px',
-                    height: isActive ? '100px' : '70px',
-                    cursor: isCompleted ? 'not-allowed' : 'pointer',
-                    filter: isActive && !isCompleted ? `drop-shadow(0 0 10px ${mode.color}) drop-shadow(0 0 5px ${mode.color})` : 'none',
-                    transition: 'width 0.3s ease, height 0.3s ease'
-                  }}
-                >
-                  <div className="w-full h-full rounded-3xl flex items-center justify-center relative overflow-hidden" style={{
-                    background: isCompleted ? 'rgba(58, 58, 58, 0.3)' : (isActive && !isCompleted ? `linear-gradient(135deg, ${mode.bgColor} 0%, ${mode.color} 100%)` : mode.bgColor),
-                    backdropFilter: 'blur(10px)',
-                    WebkitBackdropFilter: 'blur(10px)',
-                    border: `1px solid ${isCompleted ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.2)'}`,
-                    boxShadow: isActive && !isCompleted ? `0 8px 32px ${mode.color}40, inset 0 1px 0 rgba(255, 255, 255, 0.4)` : 'inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 16px rgba(0, 0, 0, 0.1)',
-                    filter: isCompleted ? 'grayscale(100%)' : 'none',
-                    opacity: isCompleted ? 0.3 : (isActive ? 1 : 0.6)
-                  }}>
-                    <div className="absolute top-0 left-0 right-0 h-1/3 rounded-t-3xl" style={{
-                      background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%)',
-                      pointerEvents: 'none'
-                    }}></div>
-                    <Icon className="w-1/2 h-1/2 relative z-10" strokeWidth={2.5} style={{ color: isCompleted ? '#666666' : 'white' }} />
-                    {isCompleted && (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className={isActive ? "text-3xl" : "text-xl"} style={{ color: '#22C55E', textShadow: '0 0 10px rgba(34, 197, 94, 0.8)', fontWeight: 'bold' }}>✓</div>
+            <div className="mb-3 lg-land:mb-4 flex justify-center">
+              <div className="flex items-center gap-3 lg-land:gap-3">
+                {enabledModes.map((mode) => {
+                  const Icon = iconMap[mode.icon];
+                  const isActive = mode.id === activeMode;
+                  const isCompleted = completedModes[mode.id] === true;
+                  
+                  return (
+                    <button
+                      key={mode.id}
+                      onClick={(e) => {
+                        createRipple(e, mode.color);
+                        handleModeChange(mode.id);
+                      }}
+                      disabled={isCompleted}
+                      className="relative transition-all duration-300 overflow-hidden"
+                      style={{
+                        width: isActive ? '72px' : '52px',
+                        height: isActive ? '72px' : '52px',
+                        cursor: isCompleted ? 'not-allowed' : 'pointer',
+                        filter: isActive && !isCompleted ? `drop-shadow(0 0 10px ${mode.color}) drop-shadow(0 0 5px ${mode.color})` : 'none',
+                        transition: 'width 0.3s ease, height 0.3s ease'
+                      }}
+                    >
+                      <div className="w-full h-full rounded-2xl flex items-center justify-center relative overflow-hidden" style={{
+                        background: isCompleted ? 'rgba(58, 58, 58, 0.3)' : (isActive && !isCompleted ? `linear-gradient(135deg, ${mode.bgColor} 0%, ${mode.color} 100%)` : mode.bgColor),
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                        border: `1px solid ${isCompleted ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.2)'}`,
+                        boxShadow: isActive && !isCompleted ? `0 8px 32px ${mode.color}40, inset 0 1px 0 rgba(255, 255, 255, 0.4)` : 'inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 16px rgba(0, 0, 0, 0.1)',
+                        filter: isCompleted ? 'grayscale(100%)' : 'none',
+                        opacity: isCompleted ? 0.3 : (isActive ? 1 : 0.6)
+                      }}>
+                        <div className="absolute top-0 left-0 right-0 h-1/3 rounded-t-2xl" style={{
+                          background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%)',
+                          pointerEvents: 'none'
+                        }}></div>
+                        <Icon className="w-1/2 h-1/2 relative z-10" strokeWidth={2.5} style={{ color: isCompleted ? '#666666' : 'white' }} />
+                        {isCompleted && (
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className={isActive ? "text-2xl" : "text-lg"} style={{ color: '#22C55E', textShadow: '0 0 10px rgba(34, 197, 94, 0.8)', fontWeight: 'bold' }}>✓</div>
+                          </div>
+                        )}
+                        {ripples.filter(r => r.color === mode.color).map(ripple => (
+                          <div
+                            key={ripple.id}
+                            className="absolute rounded-full pointer-events-none"
+                            style={{
+                              left: ripple.x,
+                              top: ripple.y,
+                              width: '10px',
+                              height: '10px',
+                              backgroundColor: mode.color,
+                              transform: 'translate(-50%, -50%)',
+                              animation: 'rippleEffect 1s ease-out',
+                              opacity: 0.2
+                            }}
+                          />
+                        ))}
+                        {ripples.filter(r => r.color === mode.color && !r.isPageRipple).map(ripple => (
+                          <div
+                            key={ripple.id}
+                            className="absolute rounded-full pointer-events-none"
+                            style={{
+                              left: ripple.x,
+                              top: ripple.y,
+                              width: '10px',
+                              height: '10px',
+                              backgroundColor: mode.color,
+                              transform: 'translate(-50%, -50%)',
+                              animation: 'rippleEffect 1s ease-out',
+                              opacity: 0.2
+                            }}
+                          />
+                        ))}
                       </div>
-                    )}
-                    {ripples.filter(r => r.color === mode.color).map(ripple => (
-                      <div
-                        key={ripple.id}
-                        className="absolute rounded-full pointer-events-none"
-                        style={{
-                          left: ripple.x,
-                          top: ripple.y,
-                          width: '10px',
-                          height: '10px',
-                          backgroundColor: mode.color,
-                          transform: 'translate(-50%, -50%)',
-                          animation: 'rippleEffect 1s ease-out',
-                          opacity: 0.2
-                        }}
-                      />
-                    )                    )}
-                    {ripples.filter(r => r.color === mode.color && !r.isPageRipple).map(ripple => (
-                      <div
-                        key={ripple.id}
-                        className="absolute rounded-full pointer-events-none"
-                        style={{
-                          left: ripple.x,
-                          top: ripple.y,
-                          width: '10px',
-                          height: '10px',
-                          backgroundColor: mode.color,
-                          transform: 'translate(-50%, -50%)',
-                          animation: 'rippleEffect 1s ease-out',
-                          opacity: 0.2
-                        }}
-                      />
-                    ))}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="mb-2 flex justify-center">
-          <button 
-            onClick={(e) => {
-              createRipple(e, currentMode?.color);
-              handleStartStop();
-            }} 
-            disabled={timeLeft === 0} 
-            className="relative transition-all duration-200 overflow-hidden" 
-            style={{ 
-            width: 'clamp(240px, 45vw, 360px)',
-            height: 'clamp(240px, 45vw, 360px)',
-            cursor: timeLeft === 0 ? 'default' : 'pointer',
-            opacity: timeLeft === 0 ? 0.5 : 1
-          }}>
-            <svg className="w-full h-full -rotate-90" viewBox="0 0 200 200">
-              <defs>
-                <linearGradient id={`emptyGradient-${activeMode}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style={{ stopColor: currentMode?.color, stopOpacity: 0.4 }} />
-                  <stop offset="50%" style={{ stopColor: '#FFFFFF', stopOpacity: 0.25 }} />
-                  <stop offset="100%" style={{ stopColor: currentMode?.color, stopOpacity: 0.35 }} />
-                </linearGradient>
-                <linearGradient id={`progressGradient-${activeMode}`} x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" style={{ stopColor: '#FFFFFF', stopOpacity: 1 }} />
-                  <stop offset="15%" style={{ stopColor: '#FFFFFF', stopOpacity: 0.7 }} />
-                  <stop offset="40%" style={{ stopColor: currentMode?.color, stopOpacity: 1 }} />
-                  <stop offset="100%" style={{ stopColor: currentMode?.color, stopOpacity: 0.85 }} />
-                </linearGradient>
-                <filter id={`gloss-${activeMode}`}>
-                  <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
-                  <feOffset dx="0" dy="-1" result="offsetblur"/>
-                  <feComponentTransfer>
-                    <feFuncA type="linear" slope="0.3"/>
-                  </feComponentTransfer>
-                  <feMerge> 
-                    <feMergeNode/>
-                    <feMergeNode in="SourceGraphic"/> 
-                  </feMerge>
-                </filter>
-              </defs>
-              <circle cx="100" cy="100" r="85" fill="none" stroke={`url(#emptyGradient-${activeMode})`} strokeWidth="14" opacity="0.9" />
-              <circle cx="100" cy="100" r="85" fill="none" stroke={`url(#progressGradient-${activeMode})`} strokeWidth="16" strokeLinecap="round" strokeDasharray="534" strokeDashoffset={534 - progress} filter={`url(#gloss-${activeMode})`} style={{ 
-                transition: 'stroke-dashoffset 0.5s linear'
-              }} />
-            </svg>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="flex flex-col items-center">
-                <div className="text-4xl sm:text-5xl font-bold" style={{ 
-                  color: textColor,
-                  fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif',
-                  fontVariantNumeric: 'tabular-nums',
-                  letterSpacing: '-0.02em',
-                  fontWeight: '300'
-                }}>
-                  {formatTime(timeLeft).main}
-                  <span className="text-xl opacity-60">.{formatTime(timeLeft).ms}</span>
-                </div>
-                {!isRunning && timeLeft !== 0 && hasStarted && (
-                  <div className="mt-1 text-xs font-medium tracking-wider uppercase px-2 py-0.5 rounded-md" style={{ 
-                    color: '#EF4444',
-                    background: isDarkMode ? 'rgba(26, 26, 26, 0.8)' : 'rgba(243, 244, 246, 0.8)',
-                    backdropFilter: 'blur(10px)',
-                    WebkitBackdropFilter: 'blur(10px)',
-                    border: `1px solid rgba(239, 68, 68, 0.3)`,
-                    fontSize: '9px'
-                  }}>
-                    Paused
-                  </div>
-                )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
-            {ripples.filter(r => r.color === currentMode?.color).map(ripple => (
-              <div
-                key={ripple.id}
-                className="absolute rounded-full pointer-events-none"
-                style={{
-                  left: ripple.x,
-                  top: ripple.y,
-                  width: '20px',
-                  height: '20px',
-                  backgroundColor: currentMode?.color,
-                  transform: 'translate(-50%, -50%)',
-                  animation: 'rippleEffect 1s ease-out',
-                  opacity: 0.2
-                }}
-              />
-            ))}
-          </button>
+
+            {/* Start/Pause button - below icons on landscape */}
+            {timeLeft !== 0 && (
+              <button 
+                onClick={(e) => {
+                  createRipple(e, currentMode?.color);
+                  handleStartStop();
+                }} 
+                className="px-8 py-3 rounded-full font-semibold text-white text-base transition-all duration-200 hover:scale-105 flex items-center gap-2 relative overflow-hidden" 
+                style={{ 
+                  background: 'rgba(75, 85, 99, 0.6)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  boxShadow: '0 8px 32px rgba(75, 85, 99, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3)' 
+                }}>
+                <div className="absolute top-0 left-0 right-0 h-1/2 rounded-t-full" style={{
+                  background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%)',
+                  pointerEvents: 'none'
+                }}></div>
+                <span className="text-lg">{isRunning ? '⏸' : '▶'}</span>
+                <span className="relative z-10">{isRunning ? 'Pause' : 'Start'}</span>
+                {ripples.filter(r => r.color === currentMode?.color).map(ripple => (
+                  <div
+                    key={ripple.id}
+                    className="absolute rounded-full pointer-events-none"
+                    style={{
+                      left: ripple.x,
+                      top: ripple.y,
+                      width: '15px',
+                      height: '15px',
+                      backgroundColor: currentMode?.color,
+                      transform: 'translate(-50%, -50%)',
+                      animation: 'rippleEffect 1s ease-out',
+                      opacity: 0.2
+                    }}
+                  />
+                ))}
+              </button>
+            )}
+          </div>
+
+          {/* Right side on landscape: timer circle */}
+          <div className="flex items-center justify-center lg-land:flex-shrink-0 mt-2 lg-land:mt-0">
+            <button 
+              onClick={(e) => {
+                createRipple(e, currentMode?.color);
+                handleStartStop();
+              }} 
+              disabled={timeLeft === 0} 
+              className="relative transition-all duration-200 overflow-hidden timer-circle" 
+              style={{ 
+              cursor: timeLeft === 0 ? 'default' : 'pointer',
+              opacity: timeLeft === 0 ? 0.5 : 1
+            }}>
+              <svg className="w-full h-full -rotate-90" viewBox="0 0 200 200">
+                <defs>
+                  <linearGradient id={`emptyGradient-${activeMode}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style={{ stopColor: currentMode?.color, stopOpacity: 0.4 }} />
+                    <stop offset="50%" style={{ stopColor: '#FFFFFF', stopOpacity: 0.25 }} />
+                    <stop offset="100%" style={{ stopColor: currentMode?.color, stopOpacity: 0.35 }} />
+                  </linearGradient>
+                  <linearGradient id={`progressGradient-${activeMode}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style={{ stopColor: '#FFFFFF', stopOpacity: 1 }} />
+                    <stop offset="15%" style={{ stopColor: '#FFFFFF', stopOpacity: 0.7 }} />
+                    <stop offset="40%" style={{ stopColor: currentMode?.color, stopOpacity: 1 }} />
+                    <stop offset="100%" style={{ stopColor: currentMode?.color, stopOpacity: 0.85 }} />
+                  </linearGradient>
+                  <filter id={`gloss-${activeMode}`}>
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+                    <feOffset dx="0" dy="-1" result="offsetblur"/>
+                    <feComponentTransfer>
+                      <feFuncA type="linear" slope="0.3"/>
+                    </feComponentTransfer>
+                    <feMerge> 
+                      <feMergeNode/>
+                      <feMergeNode in="SourceGraphic"/> 
+                    </feMerge>
+                  </filter>
+                </defs>
+                <circle cx="100" cy="100" r="85" fill="none" stroke={`url(#emptyGradient-${activeMode})`} strokeWidth="14" opacity="0.9" />
+                <circle cx="100" cy="100" r="85" fill="none" stroke={`url(#progressGradient-${activeMode})`} strokeWidth="16" strokeLinecap="round" strokeDasharray="534" strokeDashoffset={534 - progress} filter={`url(#gloss-${activeMode})`} style={{ 
+                  transition: 'stroke-dashoffset 0.5s linear'
+                }} />
+              </svg>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="flex flex-col items-center">
+                  <div className="text-3xl sm:text-4xl lg-land:text-4xl font-bold" style={{ 
+                    color: textColor,
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif',
+                    fontVariantNumeric: 'tabular-nums',
+                    letterSpacing: '-0.02em',
+                    fontWeight: '300'
+                  }}>
+                    {formatTime(timeLeft).main}
+                    <span className="text-lg opacity-60">.{formatTime(timeLeft).ms}</span>
+                  </div>
+                  {!isRunning && timeLeft !== 0 && hasStarted && (
+                    <div className="mt-1 text-xs font-medium tracking-wider uppercase px-2 py-0.5 rounded-md" style={{ 
+                      color: '#EF4444',
+                      background: isDarkMode ? 'rgba(26, 26, 26, 0.8)' : 'rgba(243, 244, 246, 0.8)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      border: `1px solid rgba(239, 68, 68, 0.3)`,
+                      fontSize: '9px'
+                    }}>
+                      Paused
+                    </div>
+                  )}
+                </div>
+              </div>
+              {ripples.filter(r => r.color === currentMode?.color).map(ripple => (
+                <div
+                  key={ripple.id}
+                  className="absolute rounded-full pointer-events-none"
+                  style={{
+                    left: ripple.x,
+                    top: ripple.y,
+                    width: '20px',
+                    height: '20px',
+                    backgroundColor: currentMode?.color,
+                    transform: 'translate(-50%, -50%)',
+                    animation: 'rippleEffect 1s ease-out',
+                    opacity: 0.2
+                  }}
+                />
+              ))}
+            </button>
+          </div>
         </div>
 
         {/* Global ripple effect */}
@@ -395,45 +440,6 @@ const TimerApp = () => {
             />
           ))}
         </div>
-
-        {timeLeft !== 0 && (
-          <button 
-            onClick={(e) => {
-              createRipple(e, currentMode?.color);
-              handleStartStop();
-            }} 
-            className="px-12 py-4 rounded-full font-semibold text-white text-lg transition-all duration-200 hover:scale-105 flex items-center gap-3 relative overflow-hidden" 
-            style={{ 
-              background: 'rgba(75, 85, 99, 0.6)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              boxShadow: '0 8px 32px rgba(75, 85, 99, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3)' 
-            }}>
-            <div className="absolute top-0 left-0 right-0 h-1/2 rounded-t-full" style={{
-              background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%)',
-              pointerEvents: 'none'
-            }}></div>
-            <span className="text-xl">{isRunning ? '⏸' : '▶'}</span>
-            <span className="relative z-10">{isRunning ? 'Pause' : 'Start'}</span>
-            {ripples.filter(r => r.color === currentMode?.color).map(ripple => (
-              <div
-                key={ripple.id}
-                className="absolute rounded-full pointer-events-none"
-                style={{
-                  left: ripple.x,
-                  top: ripple.y,
-                  width: '15px',
-                  height: '15px',
-                  backgroundColor: currentMode?.color,
-                  transform: 'translate(-50%, -50%)',
-                  animation: 'rippleEffect 1s ease-out',
-                  opacity: 0.2
-                }}
-              />
-            ))}
-          </button>
-        )}
       </div>
 
       {showConfetti && (

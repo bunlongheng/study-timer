@@ -1,3 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+.timer-circle {
+  width: clamp(200px, 40vw, 340px);
+  height: clamp(200px, 40vw, 340px);
+}
+
+/* iPad landscape and similar tablet landscape viewports */
+@media (min-width: 900px) and (orientation: landscape) and (max-height: 900px) {
+  .timer-circle {
+    width: min(50vh, 380px);
+    height: min(50vh, 380px);
+  }
+
+  .landscape-container {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+}
+
+/* Smaller landscape (e.g. phones in landscape) */
+@media (max-height: 500px) and (orientation: landscape) {
+  .timer-circle {
+    width: min(45vh, 260px);
+    height: min(45vh, 260px);
+  }
+}
