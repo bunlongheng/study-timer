@@ -33,3 +33,41 @@ html, body, #root {
     height: min(42vh, 240px);
   }
 }
+
+/* Dark mode scrollbar for settings panel */
+.settings-scroll-dark {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+.settings-scroll-dark::-webkit-scrollbar {
+  width: 6px;
+}
+.settings-scroll-dark::-webkit-scrollbar-track {
+  background: transparent;
+}
+.settings-scroll-dark::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+.settings-scroll-dark::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Light mode scrollbar for settings panel */
+.settings-scroll-light {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+.settings-scroll-light::-webkit-scrollbar {
+  width: 6px;
+}
+.settings-scroll-light::-webkit-scrollbar-track {
+  background: transparent;
+}
+.settings-scroll-light::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+.settings-scroll-light::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.35);
+}
