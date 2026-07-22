@@ -25,3 +25,6 @@ dist-ssr
 node_modules/
 .env
 .vercel
+
+# standardized on npm/package-lock.json
+pnpm-lock.yaml

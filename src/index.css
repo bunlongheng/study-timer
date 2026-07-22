@@ -71,3 +71,36 @@ html, body, #root {
 .settings-scroll-light::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.35);
 }
+
+/* Visible focus ring on custom-styled buttons/inputs, tinted to the active
+   mode's color via the --focus-color custom property set on the app root. */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--focus-color, #4A9FF5);
+  outline-offset: 2px;
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes rippleEffect {
+  0% { width: 20px; height: 20px; opacity: 0.8; }
+  100% { width: 400px; height: 400px; opacity: 0; }
+}
+
+/* Ripples animate normally when motion is allowed... */
+@media (prefers-reduced-motion: no-preference) {
+  .ripple-anim {
+    animation: rippleEffect 1s ease-out;
+  }
+}
+
+/* ...and just fade out quickly (no growth/rotation) when the user asked for
+   reduced motion. Confetti is skipped entirely in that case (see Confetti.tsx). */
+@media (prefers-reduced-motion: reduce) {
+  .ripple-anim {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+}
