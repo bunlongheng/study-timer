@@ -29,3 +29,7 @@ node_modules/
 
 # standardized on npm/package-lock.json
 pnpm-lock.yaml
+
+# Playwright
+test-results
+playwright-report
