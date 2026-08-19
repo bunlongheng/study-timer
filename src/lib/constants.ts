@@ -27,7 +27,7 @@ export const MODES: Mode[] = [
 export const DEFAULT_ENABLED_MODE_IDS = ['reading', 'writing', 'math', 'puzzle', 'art'];
 
 export const DEFAULT_SESSION_DURATION = 900;
-export const DEFAULT_USER_NAME = 'Norden Heng';
+export const DEFAULT_USER_NAME = import.meta.env.VITE_USER_NAME ?? 'Norden Heng';
 
 export const SESSION_DURATION_OPTIONS = [
   { value: 5, label: '5 seconds (test)' },
