@@ -90,7 +90,7 @@ export function TimerCircle({
           style={{ transition: 'stroke-dashoffset 0.5s linear' }}
         />
       </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
         <div className="flex flex-col items-center gap-1">
           <div
             className="text-3xl sm:text-4xl lg-land:text-4xl font-bold"

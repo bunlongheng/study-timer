@@ -12,7 +12,29 @@
         <meta name="apple-mobile-web-app-title" content="Study" />
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="A calm, offline-ready study timer for kids. Pick a study mode, run the circular countdown, and celebrate when the session completes."
+        />
         <title>Study Timer</title>
+        <style>
+            html,
+            body {
+                margin: 0;
+                background: #000;
+            }
+            /* Instant first paint so the screen never flashes white before React
+               mounts. Removed the moment the app renders into #root. */
+            #root:empty::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                display: block;
+                background:
+                    radial-gradient(circle at 50% 45%, rgba(90, 178, 255, 0.12), transparent 55%),
+                    #000;
+            }
+        </style>
     </head>
     <body>
         <div id="root"></div>

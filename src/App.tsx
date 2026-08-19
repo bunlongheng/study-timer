@@ -131,7 +131,7 @@ function App() {
         {announcement}
       </div>
 
-      <div className="w-full max-w-6xl flex flex-col items-center h-full py-2 landscape-container">
+      <main className="w-full max-w-6xl flex flex-col items-center h-full py-2 landscape-container">
         <div className="w-full px-2 mb-2 lg-land:mb-1 flex-shrink-0">
           <div className="flex items-center justify-between mb-1">
             <div className="text-left flex-shrink-0">
@@ -197,7 +197,7 @@ function App() {
         </div>
 
         <RippleLayer ripples={ripples} />
-      </div>
+      </main>
 
       {showConfetti && <Confetti />}
 
